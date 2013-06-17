@@ -88,7 +88,7 @@ namespace ProductService.Repository.Mongolab
                 // Pull the two query conditions together into one query.
                 var query = Query.And(qPropExists, qValueMatch);
 
-                var srchProductDocumentResults = MongoHelper.ProductsCollection.Find(query).
+                var srchProductDocumentResults = MongoHelper.ProductsCollection.FindAs<Product>(query).
                     Skip(pageIndex * pageSize).Take(pageSize).ToList<Product>();
 
                 return srchProductDocumentResults;
@@ -106,8 +106,19 @@ namespace ProductService.Repository.Mongolab
                     break;
 
                 case "categories":
-                    productQuery = MongoHelper.ProductsCollection.AsQueryable<Product>().
-                        Where(p => p.Categories.Contains(srchValue, StringComparer.CurrentCultureIgnoreCase));
+                    // Maybe cache this result for subsequent queries....
+                    var categories = GetCategories();
+
+                    // If the category being searched for doesn't even exist then no need to continue.
+                    if (!categories.Contains(srchValue, StringComparer.CurrentCultureIgnoreCase))
+                        break;
+                    else
+                    {
+                        // Get the exact casing for the category so Mongo can locate it.
+                        srchValue = categories.Find(c => c.ToLower() == srchValue.ToLower());
+                        productQuery = MongoHelper.ProductsCollection.AsQueryable<Product>().
+                            Where(p => p.Categories.Contains(srchValue));
+                    }
                     break;
 
                 case "price":
