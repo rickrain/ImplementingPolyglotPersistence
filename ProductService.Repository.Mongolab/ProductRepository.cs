@@ -6,14 +6,24 @@ using ProductService.Repository.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using MongoDB.Driver;
+using System.Text.RegularExpressions;
 
 namespace ProductService.Repository.Mongolab
 {
     public class ProductRepository : IProductRepository
     {
+        private List<PropertyInfo> knownProperties;
+
         public ProductRepository()
         {
             MongoHelper.RegisterClassMaps();
+
+            // Get a list of properties I know about (from the model).
+            // This is used in searching so I can insure I pass the correct
+            // casing for properties/fields I know exist in the collection.
+            knownProperties = typeof(Product).GetProperties().ToList();
         }
 
         public ProductService.Model.Product GetProduct(string prodId)
@@ -70,69 +80,44 @@ namespace ProductService.Repository.Mongolab
 
         public List<ProductService.Model.Product> Search(string srchProperty, string srchValue, int pageIndex, int pageSize)
         {
-            // Search first based on known Product model properties
-            var srchProductResults = srchKnownProductModel(srchProperty, srchValue, pageIndex, pageSize);
-            if (srchProductResults != null)
-                return srchProductResults;
+            // If this is a property/field I know about, then I can be more 
+            // precise about how I construct the query.
+            var knownProperty = knownProperties.Find(p => p.Name.ToLower() == srchProperty.ToLower());
+
+            // Set the name of the property so that we exactly match casing.
+            srchProperty = (knownProperty != null) ? knownProperty.Name : srchProperty;
+
+            // Query for searching a property's value.  
+            // This is the default query unless otherwise specified.
+            IMongoQuery query = Query.Matches(
+                srchProperty,
+                new BsonRegularExpression(
+                    new Regex(srchValue, RegexOptions.IgnoreCase)));
+
+            if (knownProperty != null)
+            {
+                if (knownProperty.PropertyType == typeof(double))
+                {
+                    double srchDouble;
+                    if (double.TryParse(srchValue, out srchDouble))
+                        query = Query.EQ(knownProperty.Name, srchDouble);
+                }
+                else if (knownProperty.PropertyType == typeof(List<string>))
+                {
+                    query = Query.All(knownProperty.Name, new List<BsonValue>() { BsonValue.Create(srchValue) });
+                }
+            }
             else
             {
-                // Search other properties in the collection that are not part
-                // of the Product model I know about.
-
                 // A query to check if the property exists in the collection.
                 var qPropExists = Query.Exists(srchProperty);
 
-                // A query to do a case-insensitive search of the value of the property.
-                var qValueMatch = Query.Matches(srchProperty, new BsonRegularExpression(srchValue, "i"));
-
                 // Pull the two query conditions together into one query.
-                var query = Query.And(qPropExists, qValueMatch);
-
-                var srchProductDocumentResults = MongoHelper.ProductsCollection.FindAs<Product>(query).
-                    Skip(pageIndex * pageSize).Take(pageSize).ToList<Product>();
-
-                return srchProductDocumentResults;
-            }
-        }
-
-        private List<ProductService.Model.Product> srchKnownProductModel(string srchProperty, string srchValue, int pageIndex, int pageSize)
-        {
-            IQueryable<Product> productQuery = null;
-            switch (srchProperty.ToLower())
-            {
-                case "name":
-                    productQuery = MongoHelper.ProductsCollection.AsQueryable<Product>().
-                        Where(p => p.Name.ToLower().Contains(srchValue.ToLower()));
-                    break;
-
-                case "categories":
-                    // Maybe cache this result for subsequent queries....
-                    var categories = GetCategories();
-
-                    // If the category being searched for doesn't even exist then no need to continue.
-                    if (!categories.Contains(srchValue, StringComparer.CurrentCultureIgnoreCase))
-                        break;
-                    else
-                    {
-                        // Get the exact casing for the category so Mongo can locate it.
-                        srchValue = categories.Find(c => c.ToLower() == srchValue.ToLower());
-                        productQuery = MongoHelper.ProductsCollection.AsQueryable<Product>().
-                            Where(p => p.Categories.Contains(srchValue));
-                    }
-                    break;
-
-                case "price":
-                    double srchPrice;
-                    if (double.TryParse(srchValue, out srchPrice))
-                        productQuery = MongoHelper.ProductsCollection.AsQueryable<Product>().
-                            Where(p => p.Price == srchPrice);
-                    break;
+                query = Query.And(qPropExists, query);
             }
 
-            if (productQuery != null)
-                return productQuery.Skip(pageIndex * pageSize).Take(pageSize).ToList();
-            else
-                return null;
+            return MongoHelper.ProductsCollection.FindAs<Product>(query).
+                Skip(pageIndex * pageSize).Take(pageSize).ToList<Product>();
         }
     }
 }
