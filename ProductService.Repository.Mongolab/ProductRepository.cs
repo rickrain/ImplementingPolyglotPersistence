@@ -104,7 +104,8 @@ namespace ProductService.Repository.Mongolab
                 }
                 else if (knownProperty.PropertyType == typeof(List<string>))
                 {
-                    query = Query.All(knownProperty.Name, new List<BsonValue>() { BsonValue.Create(srchValue) });
+                    var rx = new Regex(srchValue, RegexOptions.IgnoreCase);
+                    query = Query.All(knownProperty.Name, new List<BsonValue>() { BsonValue.Create(rx) });
                 }
             }
             else
