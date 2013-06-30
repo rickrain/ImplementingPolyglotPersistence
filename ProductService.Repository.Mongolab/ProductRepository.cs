@@ -21,8 +21,6 @@ namespace ProductService.Repository.Mongolab
             MongoHelper.RegisterClassMaps();
 
             // Get a list of properties I know about (from the model).
-            // This is used in searching so I can insure I pass the correct
-            // casing for properties/fields I know exist in the collection.
             knownProperties = typeof(Product).GetProperties().ToList();
         }
 
@@ -84,7 +82,7 @@ namespace ProductService.Repository.Mongolab
             // precise about how I construct the query.
             var knownProperty = knownProperties.Find(p => p.Name.ToLower() == srchProperty.ToLower());
 
-            // Set the name of the property so that we exactly match casing.
+            // Set the name of the property to exactly match casing.
             srchProperty = (knownProperty != null) ? knownProperty.Name : srchProperty;
 
             // Query for searching a property's value.  
