@@ -53,27 +53,60 @@ namespace ProductService.Repository.Mongolab
 
         public ProductService.Model.Review GetReview(string reviewId)
         {
-            throw new NotImplementedException();
+            ObjectId objectId;
+            if (ObjectId.TryParse(reviewId, out objectId))
+                return MongoHelper.ReviewsCollection.FindOneById(objectId);
+            else
+                return null;
         }
 
         public List<ProductService.Model.Review> GetReviews(string prodId, int pageIndex, int pageSize)
         {
-            throw new NotImplementedException();
+            ObjectId objectId;
+            if (ObjectId.TryParse(prodId, out objectId))
+            {
+                var query = Query<Review>.EQ(r => r.ProdId, objectId.ToString());
+                return MongoHelper.ReviewsCollection.Find(query).
+                    Skip(pageIndex * pageSize).Take(pageSize).ToList<Review>();
+            }
+            else
+                return null;
         }
 
         public string AddReview(string prodId, ProductService.Model.Review review)
         {
-            throw new NotImplementedException();
+            review.Id = ObjectId.GenerateNewId().ToString();
+            review.ProdId = prodId;
+            review.ReviewDate = DateTime.UtcNow;
+            MongoHelper.ReviewsCollection.Insert(review);
+            return review.Id;
         }
 
         public bool UpdateReview(string reviewId, ProductService.Model.Review review)
         {
-            throw new NotImplementedException();
+            ObjectId objectId;
+            if (ObjectId.TryParse(reviewId, out objectId))
+            {
+                var query = Query<Review>.EQ(r => r.Id, objectId.ToString());
+                var updates = Update<Review>.Combine(
+                    Update<Review>.Set(r => r.ReviewDate, DateTime.UtcNow),
+                    Update<Review>.Set(r => r.Rating, review.Rating),
+                    Update<Review>.Set(r => r.Comments, review.Comments));
+                var result = MongoHelper.ReviewsCollection.Update(query, updates);
+                return result.Ok;
+            }
+            else
+                return false;
         }
 
         public void DeleteReview(string reviewId)
         {
-            throw new NotImplementedException();
+            ObjectId objectId;
+            if (ObjectId.TryParse(reviewId, out objectId))
+            {
+                var query = Query<Review>.EQ(r => r.Id, objectId.ToString());
+                MongoHelper.ReviewsCollection.Remove(query);
+            }
         }
 
         public List<ProductService.Model.Product> Search(string srchProperty, string srchValue, int pageIndex, int pageSize)
