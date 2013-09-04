@@ -1,0 +1,96 @@
+[ { "Authors" : [ "Martin Fowler",
+        "Pramod Sadalage"
+      ],
+    "Categories" : [ "Book",
+        "Database"
+      ],
+    "Isbn" : "978-0-321-82662-6",
+    "Name" : "NoSQL Distilled",
+    "Pages" : 164,
+    "Price" : 39.990000000000002
+  },
+  { "Authors" : [ "Eric Redmond",
+        "Jim Wilson"
+      ],
+    "Categories" : [ "Book",
+        "Database"
+      ],
+    "Isbn" : "9781934356593",
+    "Name" : "Seven Databases in Seven Weeks",
+    "Pages" : 328,
+    "Price" : 35.0
+  },
+  { "BatteryCellType" : "NiCAD",
+    "Categories" : [ "Tools" ],
+    "Name" : "Adatum Circular Saw",
+    "Price" : 114.25,
+    "Voltage" : "18 Volts",
+    "Weight" : 8.3000000000000007
+  },
+  { "Categories" : [ "Clothing" ],
+    "Colors" : [ "Gray",
+        "Blue",
+        "Red",
+        "White"
+      ],
+    "Fabric" : "cotton,polyester",
+    "Name" : "Fabrikam Athletic Shirt",
+    "Price" : 19.989999999999998,
+    "Sizes" : [ "Small",
+        "Medium",
+        "Large"
+      ],
+    "SleeveLength" : "Short"
+  },
+  { "Categories" : [ "Electronics" ],
+    "Dimensions" : "40 inch wide screen",
+    "ManufDate" : "2013-03-04T00:00:00",
+    "Name" : "Contoso LCD Flat Screen",
+    "Price" : 499.99000000000001,
+    "SerialNo" : "2398ASD129CONTOS1",
+    "SmartTVFeatures" : false,
+    "Weight" : 32.600000000000001
+  },
+  { "BatteryCellType" : "NiCAD",
+    "Categories" : [ "Tools" ],
+    "Name" : "Contoso Circular Saw",
+    "Price" : 89.989999999999995,
+    "Voltage" : "12 Volts",
+    "Weight" : 5.0999999999999996
+  },
+  { "Categories" : [ "Clothing" ],
+    "Colors" : [ "White" ],
+    "Fabric" : "cotton",
+    "Name" : "Adatum Executive Shirt",
+    "Price" : 79.989999999999995,
+    "Sizes" : [ "Small",
+        "Medium",
+        "Large",
+        "X-Large"
+      ],
+    "SleeveLength" : "Long"
+  },
+  { "Categories" : [ "Clothing" ],
+    "Colors" : [ "Charcoal, Black, Brown" ],
+    "Fabric" : "polyester",
+    "Lengths" : [ 30,
+        32,
+        33,
+        34,
+        35,
+        36
+      ],
+    "Name" : "Adatum Executive Slacks",
+    "Price" : 54.990000000000002,
+    "WaistSizes" : [ 28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36
+      ]
+  }
+]

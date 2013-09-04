@@ -1,0 +1,81 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20623.1 VSUPREVIEW
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{4A1D6958-3DDB-439D-8003-CCB2493A96C9}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\NuGet.Config = .nuget\NuGet.Config
+		.nuget\NuGet.exe = .nuget\NuGet.exe
+		.nuget\NuGet.targets = .nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{8FBE34C1-9BB9-4B33-A7A9-1EE1A79C0327}"
+	ProjectSection(SolutionItems) = preProject
+		Products\products.json = Products\products.json
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartService.Repository.Interface", "ShoppingCart\ShoppingCartService.Repository.Interface\ShoppingCartService.Repository.Interface.csproj", "{018D0DC2-3D99-4325-BFC3-56F49A01F6E9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ShoppingCart", "ShoppingCart", "{DD692900-2139-4B1F-AA35-62194424DB53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Model", "Products\ProductService.Model\ProductService.Model.csproj", "{5002DCFF-35D4-4FE2-A948-037449EC31BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Repository.Interface", "Products\ProductService.Repository.Interface\ProductService.Repository.Interface.csproj", "{F78AE017-2778-40B4-BCB6-DD49952C136D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Repository.Memory", "Products\ProductService.Repository.Memory\ProductService.Repository.Memory.csproj", "{499C93F3-23E0-4660-A332-DC41E35C15C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.Repository.Mongolab", "Products\ProductService.Repository.Mongolab\ProductService.Repository.Mongolab.csproj", "{AEBCC042-F85A-4AC7-B682-EF393A95CB46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProductService.WebApi", "Products\ProductService.WebApi\ProductService.WebApi.csproj", "{ECD42AAF-52B2-46FC-87D2-F556E6BC2E0D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartService.Model", "ShoppingCart\ShoppingCartService.Model\ShoppingCartService.Model.csproj", "{500EFF65-1D35-44F4-8DDE-D78621B0BE4B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{018D0DC2-3D99-4325-BFC3-56F49A01F6E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{018D0DC2-3D99-4325-BFC3-56F49A01F6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{018D0DC2-3D99-4325-BFC3-56F49A01F6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{018D0DC2-3D99-4325-BFC3-56F49A01F6E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5002DCFF-35D4-4FE2-A948-037449EC31BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5002DCFF-35D4-4FE2-A948-037449EC31BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5002DCFF-35D4-4FE2-A948-037449EC31BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5002DCFF-35D4-4FE2-A948-037449EC31BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F78AE017-2778-40B4-BCB6-DD49952C136D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F78AE017-2778-40B4-BCB6-DD49952C136D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F78AE017-2778-40B4-BCB6-DD49952C136D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F78AE017-2778-40B4-BCB6-DD49952C136D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{499C93F3-23E0-4660-A332-DC41E35C15C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{499C93F3-23E0-4660-A332-DC41E35C15C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{499C93F3-23E0-4660-A332-DC41E35C15C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{499C93F3-23E0-4660-A332-DC41E35C15C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AEBCC042-F85A-4AC7-B682-EF393A95CB46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AEBCC042-F85A-4AC7-B682-EF393A95CB46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AEBCC042-F85A-4AC7-B682-EF393A95CB46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AEBCC042-F85A-4AC7-B682-EF393A95CB46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD42AAF-52B2-46FC-87D2-F556E6BC2E0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD42AAF-52B2-46FC-87D2-F556E6BC2E0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD42AAF-52B2-46FC-87D2-F556E6BC2E0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD42AAF-52B2-46FC-87D2-F556E6BC2E0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{500EFF65-1D35-44F4-8DDE-D78621B0BE4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{500EFF65-1D35-44F4-8DDE-D78621B0BE4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{500EFF65-1D35-44F4-8DDE-D78621B0BE4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{500EFF65-1D35-44F4-8DDE-D78621B0BE4B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5002DCFF-35D4-4FE2-A948-037449EC31BA} = {8FBE34C1-9BB9-4B33-A7A9-1EE1A79C0327}
+		{F78AE017-2778-40B4-BCB6-DD49952C136D} = {8FBE34C1-9BB9-4B33-A7A9-1EE1A79C0327}
+		{499C93F3-23E0-4660-A332-DC41E35C15C2} = {8FBE34C1-9BB9-4B33-A7A9-1EE1A79C0327}
+		{AEBCC042-F85A-4AC7-B682-EF393A95CB46} = {8FBE34C1-9BB9-4B33-A7A9-1EE1A79C0327}
+		{ECD42AAF-52B2-46FC-87D2-F556E6BC2E0D} = {8FBE34C1-9BB9-4B33-A7A9-1EE1A79C0327}
+		{018D0DC2-3D99-4325-BFC3-56F49A01F6E9} = {DD692900-2139-4B1F-AA35-62194424DB53}
+		{500EFF65-1D35-44F4-8DDE-D78621B0BE4B} = {DD692900-2139-4B1F-AA35-62194424DB53}
+	EndGlobalSection
+EndGlobal
